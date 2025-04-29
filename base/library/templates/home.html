@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Home</title>  
+</head>
+<body>
+
+    <a href = {% url 'create_author' %} > 
+        <button type="button" class="btn btn-primary">Add Author</button>
+    </a>
+
+    <h1> Welcome to the Library</h1>
+
+
+
+    <h2>Available Books</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} - {{ book.author }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Populaires Author</h2>
+    <ul>
+        {% for author in authors %}
+            <li>
+                
+                {{ author.name }}
+
+                - 
+
+                <button type="button" class="btn btn-primary">
+                    <a href="">View Details</a>
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <a href="">Edit</a>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <a href="
+                        {% url 'delete_author' author.id %}" 
+                        onclick="return confirm('Are you sure you want to delete this author?');">
+                        Delete
+                    </a>
+            </li> 
+        {% endfor %}
+    </ul>
+</body>
+</html>

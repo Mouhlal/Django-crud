@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Author, Book
@@ -36,15 +36,20 @@ class DeleteAuthor(View):
 
 class UpdateAuthor(View):
     def get(self, request, id):
-        author = Author.objects.get(id=id)
+        author = get_object_or_404(Author, id=id)
         form = AuthorForm(instance=author)
-        return render(request, 'update.html', {'form': form})
+        return render(request, 'edit.html', {'form': form, 'author': author})
 
     def post(self, request, id):
-        author = Author.objects.get(id=id)
+        author = get_object_or_404(Author, id=id)
         form = AuthorForm(request.POST, instance=author)
         if form.is_valid():
             form.save()
             return redirect('author_list')
-        return render(request, 'update.html', {'form': form})  
+        return render(request, 'edit.html', {'form': form, 'author': author})
 
+class AuthorDetail(View):
+    def get(self, request, id):
+        author = Author.objects.get(id=id)
+        books = Book.objects.filter(author=author)
+        return render(request, 'detail.html', {'author': author, 'books': books})

@@ -13,8 +13,6 @@
 
     <h1> Welcome to the Library</h1>
 
-
-
     <h2>Available Books</h2>
     <ul>
         {% for book in books %}
@@ -34,9 +32,8 @@
                 <button type="button" class="btn btn-primary">
                     <a href="">View Details</a>
                 </button>
-                <button type="button" class="btn btn-primary">
-                    <a href="">Edit</a>
-                </button>
+                <button type="button" class="btn btn-secondary">
+                    <a href="{% url 'update_author' author.id %}">Edit</a>
                 <button type="button" class="btn btn-danger">
                     <a href="
                         {% url 'delete_author' author.id %}" 
